@@ -1,0 +1,53 @@
+{
+	"name": "goworkspace",
+	"displayName": "Go Workspace",
+	"description": "Quickly create a multi-root workspace and add library folders",
+	"version": "0.0.1",
+	"publisher": "lixvbnet",
+	"author": {
+		"name": "lixvbnet",
+		"email": "lixvbnet@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lixvbnet/vscode-goworkspace"
+	},
+	"license": "MIT",
+	"icon": "",
+	"keywords": ["go", "workspace", "multi-root", "library", "folder"],
+	"engines": {
+		"vscode": "^1.0.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:goworkspace.helloWorld"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "goworkspace.helloWorld",
+				"title": "Hello World"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc",
+		"watch": "tsc -watch"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.0.0",
+		"@types/glob": "^7.1.4",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "14.x",
+		"@typescript-eslint/eslint-plugin": "^5.1.0",
+		"@typescript-eslint/parser": "^5.1.0",
+		"eslint": "^8.1.0",
+		"glob": "^7.1.7",
+		"mocha": "^9.1.3",
+		"typescript": "^4.4.4"
+	}
+}
