@@ -22,7 +22,8 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:goworkspace.helloWorld"
+		"onCommand:goworkspace.helloWorld",
+		"onLanguage:go"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
