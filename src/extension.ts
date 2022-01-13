@@ -1,24 +1,30 @@
 import * as vscode from 'vscode';
 import * as os from 'os';
 
+
+const DEBUG = true;
 const LOG_PREFIX = "[GoWorkspace]";
 
 function log(message?: any, ...optionalParams: any[]): void {
-	console.log(LOG_PREFIX, message, ...optionalParams);
+	if (DEBUG) {
+		console.log(LOG_PREFIX, message, ...optionalParams);
+	}
 }
 
-function addFoldersToWorkspace(): void {
-	// do nothing if not in folder or workspace
-	if (vscode.workspace.workspaceFolders === undefined) {
-		return;
+function addFoldersToWorkspace(force: boolean): void {
+	if (!force) {
+		// do nothing if not in folder or workspace (i.e. single files)
+		if (vscode.workspace.workspaceFolders === undefined) {
+			return;
+		}
+		// do nothing if it's already a workspace
+		if (vscode.workspace.workspaceFile !== undefined) {
+			log("It's already a workspace:", vscode.workspace.workspaceFile.path);
+			return;
+		}
 	}
-	// in a workspace
-	// if (vscode.workspace.workspaceFile !== undefined) {
-	// 	log("In workspace:", vscode.workspace.workspaceFile.path);
-	// 	return;
-	// }
 
-	log("Add folders to workspace");
+	log("Add folders to workspace. force=" + force);
 	let folderCount = vscode.workspace.workspaceFolders ? vscode.workspace.workspaceFolders.length : 0;
 	let ok = vscode.workspace.updateWorkspaceFolders(
 		folderCount, 0,
@@ -29,7 +35,9 @@ function addFoldersToWorkspace(): void {
 	if (ok) {
 		// vscode.commands.executeCommand("workbench.action.saveWorkspaceAs")
 	} else {
-		vscode.window.showErrorMessage("Failed to add workspace folders.");
+		let errMessage = "Failed to add workspace folders.";
+		log(errMessage);
+		vscode.window.showErrorMessage(errMessage);
 	}
 }
 
@@ -37,11 +45,11 @@ function addFoldersToWorkspace(): void {
 // this method is called when your extension is activated
 export function activate(context: vscode.ExtensionContext) {
 	log('In activate!');
-	addFoldersToWorkspace();
+	addFoldersToWorkspace(false);
 
 	let disposable = vscode.commands.registerCommand('goworkspace.helloWorld', () => {
 		vscode.window.showInformationMessage('Hello World from goworkspace!');
-		addFoldersToWorkspace();
+		addFoldersToWorkspace(true);
 	});
 	context.subscriptions.push(disposable);
 }
