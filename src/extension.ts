@@ -4,7 +4,7 @@ import * as path from 'path';
 import { execSync } from 'child_process';
 
 
-const DEBUG = true;
+const DEBUG = false;
 const LOG_PREFIX = "[GoWorkspace]";
 
 interface Folder {

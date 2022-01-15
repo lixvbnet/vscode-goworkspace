@@ -39,7 +39,7 @@
 				"goworkspace.autoAddLibFolders": {
 					"type": "boolean",
 					"default": true,
-					"description": "Automatically create workspace and add library folders."
+					"description": "Automatically create workspace and add library folders.\nNote: library folders will NOT be automatically added to an existing workspace."
 				}
 			}
 		},
