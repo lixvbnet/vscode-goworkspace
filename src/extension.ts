@@ -40,11 +40,11 @@ function getFromShell(cmd: string, defaultResult: string): string {
 function foldersToAdd(): Folder[] {
 	let goRoot = getFromShell("go env GOROOT", "/usr/local/go");
 	let goPath = getFromShell("go env GOPATH", os.homedir() + "/go");
-	let goVersion = getFromShell("go env GOVERSION", "go").slice(2);	// prefix "go" removed. e.g. 1.17.6
+	// let goVersion = getFromShell("go env GOVERSION", "go").slice(2);	// prefix "go" removed. e.g. 1.17.6
 
 	let folders: Folder[] = [
 		{ path: path.join(goPath, "pkg/mod"), name: "Go Modules" },
-		{ path: path.join(goRoot, "src"), name: "Go SDK " + goVersion },
+		{ path: path.join(goRoot, "src"), name: "Go SDK" },
 	];
 	return folders;
 }
