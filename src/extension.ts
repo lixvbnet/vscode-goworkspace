@@ -84,7 +84,7 @@ export function activate(context: vscode.ExtensionContext) {
 	log('In activate!');
 	let config = vscode.workspace.getConfiguration("goworkspace");
 	var autoAdd = config.get("autoAddLibFolders");
-	log("autoAddLibFolders=" + autoAdd);
+	log("goworkspace.autoAddLibFolders=" + autoAdd);
 	if (autoAdd) {
 		addLibFoldersToWorkspace(false);
 	}

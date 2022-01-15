@@ -27,6 +27,12 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"commands": [
+			{
+				"command": "goworkspace.addLibFoldersToWorkspace",
+				"title": "Add Library Folders to Workspace"
+			}
+		],
 		"configuration":{
 			"title": "GoWorkspace",
 			"properties": {
@@ -37,12 +43,14 @@
 				}
 			}
 		},
-		"commands": [
-			{
-				"command": "goworkspace.addLibFoldersToWorkspace",
-				"title": "Add Library Folders To Workspace"
-			}
-		]
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "goworkspace.addLibFoldersToWorkspace",
+					"group": "2_workspace@1"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
