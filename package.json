@@ -22,15 +22,15 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:goworkspace.helloWorld",
+		"onCommand:goworkspace.addLibFoldersToWorkspace",
 		"onLanguage:go"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "goworkspace.helloWorld",
-				"title": "Hello World"
+				"command": "goworkspace.addLibFoldersToWorkspace",
+				"title": "Add Library Folders To Workspace"
 			}
 		]
 	},

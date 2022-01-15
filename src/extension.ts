@@ -62,7 +62,7 @@ function addLibFoldersToWorkspace(force: boolean): void {
 		}
 	}
 
-	log("Add folders to workspace. force=" + force);
+	log("Add library folders to workspace. force=" + force);
 	let workspaceFoldersToAdd: WorkspaceFolder[] = foldersToAdd().map((f) => {
 		return { uri: vscode.Uri.file(f.path), name: f.name };
 	});
@@ -84,7 +84,7 @@ export function activate(context: vscode.ExtensionContext) {
 	log('In activate!');
 	addLibFoldersToWorkspace(false);
 
-	let disposable = vscode.commands.registerCommand('goworkspace.helloWorld', () => {
+	let disposable = vscode.commands.registerCommand('goworkspace.addLibFoldersToWorkspace', () => {
 		// vscode.window.showInformationMessage('Hello World from goworkspace!');
 		addLibFoldersToWorkspace(true);
 	});
