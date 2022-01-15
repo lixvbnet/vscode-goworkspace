@@ -13,7 +13,7 @@
 		"url": "https://github.com/lixvbnet/vscode-goworkspace"
 	},
 	"license": "MIT",
-	"icon": "",
+	"icon": "resources/icon.png",
 	"keywords": ["go", "workspace", "multi-root", "library", "folder"],
 	"engines": {
 		"vscode": "^1.0.0"
