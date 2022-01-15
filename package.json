@@ -27,6 +27,16 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"configuration":{
+			"title": "GoWorkspace",
+			"properties": {
+				"goworkspace.autoAddLibFolders": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically create workspace and add library folders."
+				}
+			}
+		},
 		"commands": [
 			{
 				"command": "goworkspace.addLibFoldersToWorkspace",
