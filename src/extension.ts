@@ -1,9 +1,22 @@
 import * as vscode from 'vscode';
 import * as os from 'os';
+import * as path from 'path';
+import { execSync } from 'child_process';
 
 
 const DEBUG = true;
 const LOG_PREFIX = "[GoWorkspace]";
+
+interface Folder {
+	path: string;
+	name?: string;
+}
+
+interface WorkspaceFolder {
+	uri: vscode.Uri;
+	name?: string | undefined;
+}
+
 
 function log(message?: any, ...optionalParams: any[]): void {
 	if (DEBUG) {
@@ -11,7 +24,32 @@ function log(message?: any, ...optionalParams: any[]): void {
 	}
 }
 
-function addFoldersToWorkspace(force: boolean): void {
+function error(message?: any, ...optionalParams: any[]): void {
+	console.error(LOG_PREFIX, message, ...optionalParams);
+}
+
+function getFromShell(cmd: string, defaultResult: string): string {
+	try {
+		return execSync(cmd).toString().trim();
+	} catch (err) {
+		error("" + err);
+		return defaultResult;
+	}
+}
+
+function foldersToAdd(): Folder[] {
+	let goRoot = getFromShell("go env GOROOT", "/usr/local/go");
+	let goPath = getFromShell("go env GOPATH", os.homedir() + "/go");
+	let goVersion = getFromShell("go env GOVERSION", "go").slice(2);	// prefix "go" removed. e.g. 1.17.6
+
+	let folders: Folder[] = [
+		{ path: path.join(goPath, "pkg/mod"), name: "Go Modules" },
+		{ path: path.join(goRoot, "src"), name: "Go SDK " + goVersion },
+	];
+	return folders;
+}
+
+function addLibFoldersToWorkspace(force: boolean): void {
 	if (!force) {
 		// do nothing if not in folder or workspace (i.e. single files)
 		if (vscode.workspace.workspaceFolders === undefined) {
@@ -25,13 +63,12 @@ function addFoldersToWorkspace(force: boolean): void {
 	}
 
 	log("Add folders to workspace. force=" + force);
-	let folderCount = vscode.workspace.workspaceFolders ? vscode.workspace.workspaceFolders.length : 0;
-	let ok = vscode.workspace.updateWorkspaceFolders(
-		folderCount, 0,
-		{ uri: vscode.Uri.file("/usr/local/go/src"), name: "Go Source" },
-		{ uri: vscode.Uri.file(os.homedir() + "/go/pkg/mod"), name: "Go Mod" }
-	);
+	let workspaceFoldersToAdd: WorkspaceFolder[] = foldersToAdd().map((f) => {
+		return { uri: vscode.Uri.file(f.path), name: f.name };
+	});
 
+	let folderCount = vscode.workspace.workspaceFolders ? vscode.workspace.workspaceFolders.length : 0;
+	let ok = vscode.workspace.updateWorkspaceFolders(folderCount, 0, ...workspaceFoldersToAdd);
 	if (ok) {
 		// vscode.commands.executeCommand("workbench.action.saveWorkspaceAs")
 	} else {
@@ -45,11 +82,11 @@ function addFoldersToWorkspace(force: boolean): void {
 // this method is called when your extension is activated
 export function activate(context: vscode.ExtensionContext) {
 	log('In activate!');
-	addFoldersToWorkspace(false);
+	addLibFoldersToWorkspace(false);
 
 	let disposable = vscode.commands.registerCommand('goworkspace.helloWorld', () => {
-		vscode.window.showInformationMessage('Hello World from goworkspace!');
-		addFoldersToWorkspace(true);
+		// vscode.window.showInformationMessage('Hello World from goworkspace!');
+		addLibFoldersToWorkspace(true);
 	});
 	context.subscriptions.push(disposable);
 }
