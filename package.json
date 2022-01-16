@@ -1,7 +1,7 @@
 {
 	"name": "goworkspace",
 	"displayName": "Go Workspace",
-	"description": "Quickly create multi-root workspace and add library folders",
+	"description": "Quickly create multi-root workspace and add library folders for Golang",
 	"version": "0.0.1",
 	"publisher": "lixvbnet",
 	"author": {
