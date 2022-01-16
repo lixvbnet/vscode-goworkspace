@@ -1,7 +1,7 @@
 {
 	"name": "goworkspace",
 	"displayName": "Go Workspace",
-	"description": "Quickly create a multi-root workspace and add library folders",
+	"description": "Quickly create multi-root workspace and add library folders",
 	"version": "0.0.1",
 	"publisher": "lixvbnet",
 	"author": {
@@ -14,7 +14,7 @@
 	},
 	"license": "MIT",
 	"icon": "resources/icon.png",
-	"keywords": ["go", "workspace", "multi-root", "library", "folder"],
+	"keywords": ["go workspace", "go", "golang", "workspace", "multi-root", "library", "folder"],
 	"engines": {
 		"vscode": "^1.0.0"
 	},
