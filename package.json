@@ -22,8 +22,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:goworkspace.addLibFoldersToWorkspace",
-		"onLanguage:go"
+		"onCommand:goworkspace.addLibFoldersToWorkspace"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -33,16 +32,6 @@
 				"title": "Add Library Folders to Workspace"
 			}
 		],
-		"configuration":{
-			"title": "GoWorkspace",
-			"properties": {
-				"goworkspace.autoAddLibFolders": {
-					"type": "boolean",
-					"default": true,
-					"description": "Automatically create workspace and add library folders.\nNote: library folders will NOT be automatically added to an existing workspace."
-				}
-			}
-		},
 		"menus": {
 			"explorer/context": [
 				{

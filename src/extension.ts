@@ -82,13 +82,6 @@ function addLibFoldersToWorkspace(force: boolean): void {
 // this method is called when your extension is activated
 export function activate(context: vscode.ExtensionContext) {
 	log('In activate!');
-	let config = vscode.workspace.getConfiguration("goworkspace");
-	var autoAdd = config.get("autoAddLibFolders");
-	log("goworkspace.autoAddLibFolders=" + autoAdd);
-	if (autoAdd) {
-		addLibFoldersToWorkspace(false);
-	}
-
 	let disposable = vscode.commands.registerCommand('goworkspace.addLibFoldersToWorkspace', () => {
 		// vscode.window.showInformationMessage('Hello World from goworkspace!');
 		addLibFoldersToWorkspace(true);
